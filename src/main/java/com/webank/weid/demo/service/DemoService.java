@@ -19,12 +19,13 @@
 
 package com.webank.weid.demo.service;
 
-import java.util.Map;
-
+import com.webank.weid.demo.common.request.WeIdRequest;
 import com.webank.weid.protocol.base.CptBaseInfo;
 import com.webank.weid.protocol.base.CredentialWrapper;
 import com.webank.weid.protocol.response.CreateWeIdDataResult;
 import com.webank.weid.protocol.response.ResponseData;
+
+import java.util.Map;
 
 /**
  * demo interface.
@@ -49,6 +50,14 @@ public interface DemoService {
      * @return returns the create weId  and public private keys
      */
     ResponseData<CreateWeIdDataResult> createWeId();
+
+    /**
+     * 创建Weid
+     *
+     * @param request 请求体
+     * @return 响应
+     */
+    ResponseData<CreateWeIdDataResult> createWeId(WeIdRequest request);
 
     /**
      * register on the chain as an authoritative body.

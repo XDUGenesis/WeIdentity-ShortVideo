@@ -1,0 +1,69 @@
+create table tb_did
+(
+    id         bigint auto_increment primary key                comment '主键id' ,
+    did        varchar(200)                           not null comment '用户DID',
+    age        int                                     not null comment '年龄',
+    number     varchar(20)                             not null comment '手机号',
+    sex        varchar(10)                             not null comment '性别',
+    idCard     varchar(50)                             not null comment '身份证号',
+    createTime timestamp default '1970-02-01 00:00:01' not null comment '创建时间',
+    updateTime  timestamp default '1970-02-01 00:00:01' not null comment '修改时间'
+)
+    comment 'DID表';
+
+create table tb_credit
+(
+    id         bigint auto_increment primary key                comment '主键id' ,
+    did        varchar(200)                            not null comment '用户DID',
+    credit     bigint                                  not null comment '信用值',
+    modifier   varchar(100)                            comment '修改方',
+    createTime timestamp default '1970-02-01 00:00:01' not null comment '创建时间',
+    updateTime  timestamp default '1970-02-01 00:00:01' not null comment '修改时间'
+)
+    comment '信用表';
+
+create table tb_interest
+(
+    id         bigint auto_increment primary key                comment '主键id' ,
+    did        varchar(200)                            not null comment '用户DID',
+    interests  varchar(200)                            not null comment '兴趣点',
+    createTime timestamp default '1970-02-01 00:00:01' not null comment '创建时间',
+    updateTime  timestamp default '1970-02-01 00:00:01' not null comment '修改时间'
+)
+    comment '兴趣表';
+
+create table tb_log
+(
+    id         bigint auto_increment primary key                comment '主键id' ,
+    did        varchar(200)                            not null comment '用户DID',
+    log        varchar(200)                            not null comment '日志记录',
+    createTime timestamp default '1970-02-01 00:00:01' not null comment '创建时间'
+)
+    comment '日志表';
+
+create table tb_creator
+(
+    id         bigint auto_increment primary key                comment '主键id' ,
+    did        varchar(200)                            not null comment '用户DID',
+    credit     bigint                                  not null comment '信用值',
+    level      int                                     not null comment '信用等级',
+    createTime timestamp default '1970-02-01 00:00:01' not null comment '创建时间',
+    updateTime  timestamp default '1970-02-01 00:00:01' not null comment '修改时间'
+)
+    comment '创作者表';
+
+create table tb_summaryInterest
+(
+    id         bigint auto_increment primary key                comment '主键id' ,
+    interest   varchar(100)                            not null comment '兴趣点',
+    count      bigint                                   not null comment '计数值',
+    createTime timestamp default '1970-02-01 00:00:01' not null comment '创建时间',
+    updateTime  timestamp default '1970-02-01 00:00:01' not null comment '修改时间'
+)
+    comment '兴趣汇总表';
+
+
+
+
+
+

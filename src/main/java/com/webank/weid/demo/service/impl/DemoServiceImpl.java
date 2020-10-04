@@ -19,23 +19,16 @@
 
 package com.webank.weid.demo.service.impl;
 
-import java.util.Map;
-
-import com.webank.weid.protocol.request.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-
 import com.webank.weid.constant.ErrorCode;
+import com.webank.weid.demo.common.dos.WeIdDo;
+import com.webank.weid.demo.common.request.WeIdRequest;
+import com.webank.weid.demo.common.util.ConvertUtil;
 import com.webank.weid.demo.common.util.FileUtil;
 import com.webank.weid.demo.common.util.PrivateKeyUtil;
+import com.webank.weid.demo.mapper.UserAgentMapper;
 import com.webank.weid.demo.service.DemoService;
-import com.webank.weid.protocol.base.AuthorityIssuer;
-import com.webank.weid.protocol.base.CptBaseInfo;
-import com.webank.weid.protocol.base.Credential;
-import com.webank.weid.protocol.base.CredentialWrapper;
-import com.webank.weid.protocol.base.WeIdAuthentication;
-import com.webank.weid.protocol.base.WeIdPrivateKey;
+import com.webank.weid.protocol.base.*;
+import com.webank.weid.protocol.request.*;
 import com.webank.weid.protocol.response.CreateWeIdDataResult;
 import com.webank.weid.protocol.response.ResponseData;
 import com.webank.weid.rpc.AuthorityIssuerService;
@@ -47,6 +40,12 @@ import com.webank.weid.service.impl.CptServiceImpl;
 import com.webank.weid.service.impl.CredentialServiceImpl;
 import com.webank.weid.service.impl.WeIdServiceImpl;
 import com.webank.weid.util.DataToolUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 /**
  * Demo service.
@@ -69,6 +68,12 @@ public class DemoServiceImpl implements DemoService {
     private CredentialService credentialService = new CredentialServiceImpl();
 
     private WeIdService weIdService = new WeIdServiceImpl();
+
+    @Autowired
+    private ConvertUtil convertUtil;
+
+    @Autowired
+    private UserAgentMapper userAgentMapper;
 
     /**
      * set validity period to 360 days by default.
@@ -146,6 +151,36 @@ public class DemoServiceImpl implements DemoService {
                 response.getResult().getWeId(),
                 response.getResult().getUserWeIdPrivateKey().getPrivateKey()
             );
+        }
+
+        /*
+         *  private keys are not allowed to be transmitted over http, so this place
+         *  annotates the return of private keys to avoid misuse.
+         */
+        response.getResult().setUserWeIdPrivateKey(null);
+        return response;
+    }
+
+    /**
+     * 创建Weid
+     * @param request 请求
+     * @return 返回响应信息
+     */
+    @Override
+    public ResponseData<CreateWeIdDataResult> createWeId(WeIdRequest request) {
+
+        ResponseData<CreateWeIdDataResult> response = createWeIdWithSetAttr();
+        // if weId is created successfully, save its private key.
+        if (response.getErrorCode().intValue() == ErrorCode.SUCCESS.getCode()) {
+            PrivateKeyUtil.savePrivateKey(
+                    PrivateKeyUtil.KEY_DIR,
+                    response.getResult().getWeId(),
+                    response.getResult().getUserWeIdPrivateKey().getPrivateKey()
+            );
+            request.setDid(response.getResult().getWeId());
+            // 存储DID相关信息
+            WeIdDo weidDo = convertUtil.convertToWeIdDo(request);
+            userAgentMapper.insertDID(weidDo);
         }
 
         /*

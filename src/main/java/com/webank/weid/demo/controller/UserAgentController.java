@@ -19,6 +19,7 @@
 
 package com.webank.weid.demo.controller;
 
+import com.webank.weid.demo.common.request.WeIdRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ import com.webank.weid.protocol.response.ResponseData;
 @Api(description = "User Agent / Credential Repository: "
         + "用户（实体）在此生成WeIdentity DID。为了便于使用，实体也可将自己的私钥、持有的Credential托管于此。",
     tags = {"UserAgent相关接口"})
-public class DemoUserAgentController {
+public class UserAgentController {
 
     @Autowired
     private DemoService demoService;
@@ -52,6 +53,12 @@ public class DemoUserAgentController {
     @PostMapping("/step1/userAgent/createWeId")
     public ResponseData<CreateWeIdDataResult> createWeId() {
         return demoService.createWeId();
+    }
+
+    @ApiOperation(value = "创建weid")
+    @PostMapping("/shortVideo/userAgent/createWeId")
+    public ResponseData<CreateWeIdDataResult> createWeId(WeIdRequest weIdRequest) {
+        return demoService.createWeId(weIdRequest);
     }
 
 }
