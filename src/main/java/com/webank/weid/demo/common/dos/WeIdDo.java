@@ -15,22 +15,16 @@ public class WeIdDo {
      * 用户DID
      */
     private String did;
-    /**
-     * 年龄
-     */
-    private int age;
+
     /**
      * 手机号
      */
-    private String number;
+    private String account;
+
     /**
-     * 性别
+     * 密码
      */
-    private String sex;
-    /**
-     * 信用值
-     */
-    private String idCard;
+    private String password;
     /**
      * 创建时间
      */

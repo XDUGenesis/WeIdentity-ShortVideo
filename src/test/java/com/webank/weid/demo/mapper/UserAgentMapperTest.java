@@ -4,7 +4,11 @@ import com.webank.weid.demo.common.dos.WeIdDo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * @Author: ningque
@@ -12,6 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @Version 1.0
  */
 @RunWith(SpringJUnit4ClassRunner.class)
+@SpringBootTest
 public class UserAgentMapperTest {
     @Autowired
     private UserAgentMapper userAgentMapper;
@@ -20,10 +25,10 @@ public class UserAgentMapperTest {
     public void testInsertDID(){
         WeIdDo weIdDo = new WeIdDo();
         weIdDo.setDid("asdfgggh");
-        weIdDo.setSex("男");
-        weIdDo.setNumber("12345678");
-        weIdDo.setIdCard("daivnaivna8978");
-        weIdDo.setAge(20);
+        weIdDo.setAccount("1234567");
+        weIdDo.setPassword("dnaidnaivnai");
+        weIdDo.setCreateTime((Timestamp) new Date());
+        weIdDo.setUpdateTime((Timestamp) new Date());
 
         System.out.println(userAgentMapper.insertDID(weIdDo));
     }

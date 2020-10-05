@@ -2,19 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.webank.weid.demo.mapper.UserAgentMapper">
-    <resultMap type="com.webank.weid.demo.common.dos.WeIdDo">
-        <id cloumn="ID" property="id"/>
-        <id cloumn="did" property="did"/>
-        <id cloumn="number" property="number"/>
-        <id cloumn="sex" property="sex"/>
-        <id cloumn="idCard" property="idCard"/>
-        <id cloumn="createTime" property="createTime"/>
-        <id cloumn="updateTime" property="updateTime"/>
+    <resultMap id="getWeIdDo" type="com.webank.weid.demo.common.dos.WeIdDo">
+        <id column="ID" property="id"/>
+        <result column="did" property="did"/>
+        <result column="account" property="account"/>
+        <result column="password" property="password"/>
+        <result column="createTime" property="createTime"/>
+        <result column="updateTime" property="updateTime"/>
     </resultMap>
     <!-- 插入DID 信息 -->
     <insert id="insertDID" parameterType="com.webank.weid.demo.common.dos.WeIdDo">
-        INSERT INTO tb_did (did, age, number, sex, idCard)
-        values (#{did}, #{age}, #{number}, #{sex}, #{idCard});
+        INSERT INTO tb_did (did, account, password, createTime, updateTime)
+        values (#{did}, #{account}, #{password}, #{createTime}, #{updateTime});
     </insert>
+
+    <select id="findByAccount" parameterType="com.webank.weid.demo.common.dos.WeIdDo">
+        select * from tb_did where account = #{account};
+    </select>
 
 </mapper>

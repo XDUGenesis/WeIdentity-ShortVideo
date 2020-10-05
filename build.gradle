@@ -150,6 +150,28 @@ dependencies {
             compile fileTree(dir: 'dist/lib', include: '*.jar')
         }
     }
+
+    compile "org.springframework:spring-web:$spring_version"
+    compile "org.springframework:spring-webmvc:$spring_version"
+    compile "org.springframework:spring-aop:$spring_version"
+    compile "org.springframework:spring-aspects:$spring_version"
+    compile "org.springframework:spring-beans:$spring_version"
+    compile "org.springframework:spring-context:$spring_version"
+    compile "org.springframework:spring-context-support:$spring_version"
+    compile "org.springframework:spring-core:$spring_version"
+    compile "org.springframework:spring-expression:$spring_version"
+    compile "org.springframework:spring-jdbc:$spring_version"
+    compile "org.springframework:spring-messaging:$spring_version"
+    compile "org.springframework:spring-orm:$spring_version"
+    compile "org.springframework:spring-tx:$spring_version"
+    compile "org.springframework:spring-test:$spring_version"
+
+    compile "org.mybatis:mybatis:3.4.1"
+
+    compile 'org.mybatis.spring.boot:mybatis-spring-boot-starter:1.2.1'
+
+    compile 'org.springframework.boot:spring-boot-starter-test'
+
 }
 
 //生成的jar包包名和版本
