@@ -19,7 +19,10 @@
 
 package com.webank.weid.demo.controller;
 
+import com.webank.weid.demo.common.request.UserInfoRequest;
 import com.webank.weid.demo.common.request.WeIdRequest;
+import com.webank.weid.demo.common.response.ResMsg;
+import com.webank.weid.demo.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +47,9 @@ public class UserAgentController {
     @Autowired
     private DemoService demoService;
 
+    @Autowired
+    private UserService userService;
+
     /**
      * create weId without parameters and call the settings property method.
      *
@@ -56,9 +62,15 @@ public class UserAgentController {
     }
 
     @ApiOperation(value = "创建weid")
-    @PostMapping("/shortVideo/userAgent/createWeId")
-    public ResponseData<CreateWeIdDataResult> createWeId(WeIdRequest weIdRequest) {
+    @PostMapping("/shortVideo/userAgent/register")
+    public ResponseData<CreateWeIdDataResult> register(WeIdRequest weIdRequest) {
         return demoService.createWeId(weIdRequest);
+    }
+
+    @ApiOperation(value = "完善用户信息")
+    @PostMapping("/shortVideo/userAgent/finishUserInformation")
+    public ResponseData<ResMsg> finishUserInformation(UserInfoRequest userInfoRequest) {
+        return userService.completeUserInfo(userInfoRequest);
     }
 
 }

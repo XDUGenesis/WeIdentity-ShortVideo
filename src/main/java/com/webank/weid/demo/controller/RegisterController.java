@@ -2,7 +2,7 @@ package com.webank.weid.demo.controller;
 
 import com.webank.weid.demo.common.request.RegisterRequest;
 import com.webank.weid.demo.common.response.ResMsg;
-import com.webank.weid.demo.service.RegisterService;
+import com.webank.weid.demo.service.UserService;
 import com.webank.weid.protocol.response.ResponseData;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class RegisterController {
     @Autowired
-    private RegisterService registerService;
+    private UserService userService;
 
     @ApiOperation(value = "用户登陆")
-    @PostMapping("/shortVideo/register")
-    public ResponseData<ResMsg> userRegister(RegisterRequest registerRequest){
-        return registerService.userRegister(registerRequest);
+    @PostMapping("/shortVideo/login")
+    public ResponseData<ResMsg> login(RegisterRequest registerRequest){
+        return userService.userRegister(registerRequest);
     }
 }

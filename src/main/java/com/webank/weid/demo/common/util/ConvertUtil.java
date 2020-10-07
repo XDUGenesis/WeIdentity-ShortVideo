@@ -1,6 +1,8 @@
 package com.webank.weid.demo.common.util;
 
+import com.webank.weid.demo.common.dos.UserInfoDo;
 import com.webank.weid.demo.common.dos.WeIdDo;
+import com.webank.weid.demo.common.request.UserInfoRequest;
 import com.webank.weid.demo.common.request.WeIdRequest;
 import org.springframework.stereotype.Component;
 
@@ -19,5 +21,15 @@ public class ConvertUtil {
         weIdDo.setCreateTime(request.getCreateTime());
         weIdDo.setUpdateTime(request.getUpdateTime());
         return weIdDo;
+    }
+
+    public UserInfoDo convertToUserInfoDo(UserInfoRequest userInfoRequest) {
+        UserInfoDo infoDo = new UserInfoDo();
+        infoDo.setAccount(userInfoRequest.getPhoneNumber());
+        infoDo.setAge(userInfoRequest.getAge());
+        infoDo.setIdCard(userInfoRequest.getIdentityNumber());
+        infoDo.setName(userInfoRequest.getName());
+        infoDo.setSex(userInfoRequest.getSex());
+        return infoDo;
     }
 }
