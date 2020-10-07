@@ -1,6 +1,7 @@
 package com.webank.weid.demo.controller;
 
 import com.webank.weid.demo.common.request.RegisterRequest;
+import com.webank.weid.demo.common.response.ResMsg;
 import com.webank.weid.demo.service.RegisterService;
 import com.webank.weid.protocol.response.ResponseData;
 import io.swagger.annotations.ApiOperation;
@@ -22,7 +23,7 @@ public class RegisterController {
 
     @ApiOperation(value = "用户登陆")
     @PostMapping("/shortVideo/register")
-    public ResponseData<Boolean> userRegister(RegisterRequest registerRequest){
+    public ResponseData<ResMsg> userRegister(RegisterRequest registerRequest){
         return registerService.userRegister(registerRequest);
     }
 }

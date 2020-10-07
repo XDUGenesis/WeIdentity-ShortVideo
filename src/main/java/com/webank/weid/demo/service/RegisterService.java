@@ -1,6 +1,7 @@
 package com.webank.weid.demo.service;
 
 import com.webank.weid.demo.common.request.RegisterRequest;
+import com.webank.weid.demo.common.response.ResMsg;
 import com.webank.weid.protocol.response.ResponseData;
 
 /**
@@ -15,5 +16,5 @@ public interface RegisterService {
      * @param registerRequest 登陆请求
      * @return 响应
      */
-    ResponseData<Boolean> userRegister(RegisterRequest registerRequest);
+    ResponseData<ResMsg> userRegister(RegisterRequest registerRequest);
 }

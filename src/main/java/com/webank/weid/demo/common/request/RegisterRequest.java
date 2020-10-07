@@ -14,7 +14,7 @@ public class RegisterRequest {
     /**
      * 用户账户名
      */
-    private String account;
+    private String phoneNumber;
 
     /**
      * 用户密码

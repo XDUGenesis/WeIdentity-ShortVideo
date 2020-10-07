@@ -20,7 +20,7 @@ public interface UserAgentMapper {
     /**
      * 根据账户名查询用户信息
      *
-     * @param account 账户名
+     * @param account 账户名(手机号）
      * @return 返回查询结果
      */
     WeIdDo findByAccount(@Param("account") String account);
