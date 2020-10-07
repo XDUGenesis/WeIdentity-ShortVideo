@@ -2,23 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.webank.weid.demo.mapper.UserInfoMapper">
-    <resultMap id="getUserInfoDo" type="com.webank.weid.demo.common.dos.UserInfoDo">
-        <id column="ID" property="id"/>
-        <result column="did" property="did"/>
-        <result column="account" property="account"/>
-        <result column="age" property="age"/>
-        <result column="name" property="name"/>
-        <result column="sex" property="sex"/>
-        <result column="idCard" property="idCard"/>
+    <resultMap id="UserInfoDo" type="com.webank.weid.demo.common.dos.UserInfoDo">
+        <id column="ID" property="id" jdbcType="INTEGER"/>
+        <result column="did" property="did" jdbcType="VARCHAR"/>
+        <result column="account" property="account" jdbcType="VARCHAR"/>
+        <result column="age" property="age" />
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="sex" property="sex" jdbcType="VARCHAR"/>
+        <result column="idCard" property="idCard" jdbcType="VARCHAR"/>
         <result column="createTime" property="createTime"/>
         <result column="updateTime" property="updateTime"/>
     </resultMap>
     <!-- 插入DID 信息 -->
     <insert id="insertUserInfo" parameterType="com.webank.weid.demo.common.dos.UserInfoDo">
-        INSERT INTO tb_did (did, account, age, name, sex, idCard, createTime, updateTime)
+        INSERT INTO tb_user (did, account, age, name, sex, idCard, createTime, updateTime)
         values (#{did}, #{account}, #{age}, #{name}, #{sex}, #{idCard}, #{createTime}, #{updateTime});
     </insert>
 
-
+    <select id="getUserInfoByAccount" resultMap="com.webank.weid.demo.common.dos.UserInfoDo" parameterType="java.lang.String">
+        select * from tb_user where account = #{account};
+    </select>
 
 </mapper>

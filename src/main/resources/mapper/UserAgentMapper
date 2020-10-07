@@ -16,7 +16,7 @@
         values (#{did}, #{account}, #{password}, #{createTime}, #{updateTime});
     </insert>
 
-    <select id="findByAccount" parameterType="com.webank.weid.demo.common.dos.WeIdDo">
+    <select id="findByAccount" resultMap="com.webank.weid.demo.common.dos.WeIdDo" parameterType="java.lang.String">
         select * from tb_did where account = #{account};
     </select>
 

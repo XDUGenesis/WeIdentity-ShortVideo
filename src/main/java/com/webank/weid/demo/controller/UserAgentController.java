@@ -22,6 +22,7 @@ package com.webank.weid.demo.controller;
 import com.webank.weid.demo.common.request.UserInfoRequest;
 import com.webank.weid.demo.common.request.WeIdRequest;
 import com.webank.weid.demo.common.response.ResMsg;
+import com.webank.weid.demo.common.response.UserInfoResult;
 import com.webank.weid.demo.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -72,5 +73,12 @@ public class UserAgentController {
     public ResponseData<ResMsg> finishUserInformation(UserInfoRequest userInfoRequest) {
         return userService.completeUserInfo(userInfoRequest);
     }
+
+    @ApiOperation(value = "获取用户信息")
+    @PostMapping("/shortVideo/userAgent/didcardinfo")
+    public ResponseData<UserInfoResult> didCardInfo(UserInfoRequest userInfoRequest) {
+        return userService.didCardInfo(userInfoRequest);
+    }
+
 
 }

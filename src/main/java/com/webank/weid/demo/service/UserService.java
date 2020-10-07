@@ -3,6 +3,7 @@ package com.webank.weid.demo.service;
 import com.webank.weid.demo.common.request.RegisterRequest;
 import com.webank.weid.demo.common.request.UserInfoRequest;
 import com.webank.weid.demo.common.response.ResMsg;
+import com.webank.weid.demo.common.response.UserInfoResult;
 import com.webank.weid.protocol.response.ResponseData;
 
 /**
@@ -25,4 +26,11 @@ public interface UserService {
      * @return 响应
      */
     ResponseData<ResMsg> completeUserInfo(UserInfoRequest userInfoRequest);
+
+    /**
+     * 获取用户卡片信息
+     * @param userInfoRequest 请求体（电话号）
+     * @return 响应（信息）
+     */
+    ResponseData<UserInfoResult> didCardInfo(UserInfoRequest userInfoRequest);
 }

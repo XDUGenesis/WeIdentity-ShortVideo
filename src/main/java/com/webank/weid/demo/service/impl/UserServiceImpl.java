@@ -4,7 +4,9 @@ import com.webank.weid.demo.common.dos.UserInfoDo;
 import com.webank.weid.demo.common.dos.WeIdDo;
 import com.webank.weid.demo.common.request.RegisterRequest;
 import com.webank.weid.demo.common.request.UserInfoRequest;
+import com.webank.weid.demo.common.response.DidCardInfo;
 import com.webank.weid.demo.common.response.ResMsg;
+import com.webank.weid.demo.common.response.UserInfoResult;
 import com.webank.weid.demo.common.util.ConvertUtil;
 import com.webank.weid.demo.mapper.UserAgentMapper;
 import com.webank.weid.demo.mapper.UserInfoMapper;
@@ -73,6 +75,42 @@ public class UserServiceImpl implements UserService {
             msg.setMsg("fail");
         }
         responseData.setResult(msg);
+        return responseData;
+    }
+
+    /**
+     * 获取用户卡片信息
+     *
+     * @param userInfoRequest 请求体（电话号）
+     * @return 响应（信息）
+     */
+    @Override
+    public ResponseData<UserInfoResult> didCardInfo(UserInfoRequest userInfoRequest) {
+        ResponseData<UserInfoResult> responseData = new ResponseData<>();
+        UserInfoResult userInfoResult = new UserInfoResult();
+        DidCardInfo cardInfo = new DidCardInfo();
+        String account = userInfoRequest.getPhoneNumber();
+        UserInfoDo userInfoDo = userInfoMapper.getUserInfoByAccount(account);
+        if(userInfoDo != null){
+            cardInfo.setAge(userInfoDo.getAge());
+            cardInfo.setName(userInfoDo.getName());
+            cardInfo.setPublicKey(userInfoDo.getDid());
+            cardInfo.setIdentityNumber(userInfoDo.getIdCard());
+            if(userInfoDo.getAge() < 18){
+                cardInfo.setYouthMode(true);
+                // TODO: 后续更改防止沉迷逻辑
+                cardInfo.setAntiAddiction(true);
+            } else {
+                cardInfo.setYouthMode(false);
+                cardInfo.setAntiAddiction(false);
+            }
+            userInfoResult.setDidcardinfo(cardInfo);
+            userInfoResult.setMsg("success");
+        } else {
+            userInfoResult.setDidcardinfo(cardInfo);
+            userInfoResult.setMsg("fail");
+        }
+        responseData.setResult(userInfoResult);
         return responseData;
     }
 
