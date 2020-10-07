@@ -29,23 +29,23 @@ if (!gradle.startParameter.isOffline()) {
 }
 
 version = "1.0.3"
-def repo ="${repoType}"
+def repo = "${repoType}"
 //设置jdk的版本
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
-	if (!gradle.startParameter.isOffline()) {
-         mavenLocal()
+    if (!gradle.startParameter.isOffline()) {
+        mavenLocal()
         if ("cn" == repo) {
             println "use cn repo"
-            maven {url "http://maven.aliyun.com/nexus/content/groups/public/"}
+            maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
         } else {
             println "use default repo"
             mavenCentral()
         }
-    	maven { url "https://dl.bintray.com/ethereum/maven/" }
-	maven { url "https://oss.sonatype.org/content/groups/public/" }
+        maven { url "https://dl.bintray.com/ethereum/maven/" }
+        maven { url "https://oss.sonatype.org/content/groups/public/" }
     } else {
         maven {
             url 'dependencies'
@@ -119,18 +119,18 @@ dependencies {
     } else {
         println "No pipeline jar found for WeIdentity Java SDK, using gradle version.."
         compile("com.webank:weid-java-sdk:1.6.5-rc.6-SNAPSHOT") {
-            exclude group:"org.slf4j", module: "slf4j-log4j12"
+            exclude group: "org.slf4j", module: "slf4j-log4j12"
         }
     }
     if (gradleVer.startsWith("4")) {
         if (gradle.startParameter.isOffline()) {
             compile fileTree(dir: 'dist/lib', include: '*.jar')
         } else {
-            compile("org.springframework.boot:spring-boot-starter-web"){
-				exclude group:"ch.qos.logback"
-				exclude group:"org.apache.logging.log4j"
-			}
-            compile fileTree(dir:'libs', include:'*.jar')
+            compile("org.springframework.boot:spring-boot-starter-web") {
+                exclude group: "ch.qos.logback"
+                exclude group: "org.apache.logging.log4j"
+            }
+            compile fileTree(dir: 'libs', include: '*.jar')
             compile apache_commons, swagger, json, mysql_driver, spring, other
         }
     }
@@ -138,11 +138,11 @@ dependencies {
         if (!gradle.startParameter.isOffline()) {
             compileOnly 'org.projectlombok:lombok:1.18.12'
             annotationProcessor 'org.projectlombok:lombok:1.18.12'
-            compile("org.springframework.boot:spring-boot-starter-web"){
-				exclude group:"ch.qos.logback"
-				exclude group:"org.apache.logging.log4j"
-			}
-            compile fileTree(dir:'libs', include:'*.jar')
+            compile("org.springframework.boot:spring-boot-starter-web") {
+                exclude group: "ch.qos.logback"
+                exclude group: "org.apache.logging.log4j"
+            }
+            compile fileTree(dir: 'libs', include: '*.jar')
             compile apache_commons, swagger, json, mysql_driver, spring, other
         } else {
             compileOnly files('dist/lib/lombok-1.18.12.jar')
@@ -172,6 +172,9 @@ dependencies {
 
     compile 'org.springframework.boot:spring-boot-starter-test'
 
+    // 阿里云依赖
+    compile 'com.aliyun:aliyun-java-sdk-core:3.2.8'
+    compile 'com.aliyun:aliyun-java-sdk-dysmsapi:1.1.0'
 }
 
 //生成的jar包包名和版本
@@ -179,9 +182,9 @@ jar {
     enabled = true
     baseName = 'weIdentity-sample'
     destinationDir file('dist/app')
-    archiveName baseName+ '-' + version + '.jar'
-	exclude '/*.*'
-	
+    archiveName baseName + '-' + version + '.jar'
+    exclude '/*.*'
+
     doLast {
         copy {
             from configurations.compile
