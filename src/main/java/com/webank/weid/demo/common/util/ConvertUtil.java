@@ -14,8 +14,7 @@ public class ConvertUtil {
 
     public WeIdDo convertToWeIdDo(WeIdRequest request) {
         WeIdDo weIdDo = new WeIdDo();
-        weIdDo.setDid(request.getDid());
-        weIdDo.setAccount(request.getAccount());
+        weIdDo.setAccount(request.getPhoneNumber());
         weIdDo.setPassword(request.getPassword());
         weIdDo.setCreateTime(request.getCreateTime());
         weIdDo.setUpdateTime(request.getUpdateTime());

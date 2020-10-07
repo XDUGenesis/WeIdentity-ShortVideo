@@ -177,9 +177,9 @@ public class DemoServiceImpl implements DemoService {
                     response.getResult().getWeId(),
                     response.getResult().getUserWeIdPrivateKey().getPrivateKey()
             );
-            request.setDid(response.getResult().getWeId());
             // 存储DID相关信息
             WeIdDo weidDo = convertUtil.convertToWeIdDo(request);
+            weidDo.setDid(response.getResult().getWeId());
             userAgentMapper.insertDID(weidDo);
         }
 

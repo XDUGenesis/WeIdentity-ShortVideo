@@ -22,7 +22,7 @@ public class RegisterController {
 
     @ApiOperation(value = "用户登陆")
     @PostMapping("/shortVideo/register")
-    public ResponseData userRegister(RegisterRequest registerRequest){
+    public ResponseData<Boolean> userRegister(RegisterRequest registerRequest){
         return registerService.userRegister(registerRequest);
     }
 }

@@ -14,14 +14,9 @@ import java.sql.Timestamp;
 @Data
 public class WeIdRequest {
     /**
-     * 用户DID
-     */
-    private String did;
-
-    /**
      * 账户
      */
-    private String account;
+    private String phoneNumber;
 
     /**
      * 密码
