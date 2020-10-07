@@ -33,4 +33,5 @@ public interface UserService {
      * @return 响应（信息）
      */
     ResponseData<UserInfoResult> didCardInfo(UserInfoRequest userInfoRequest);
+
 }

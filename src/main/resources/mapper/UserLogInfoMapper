@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.webank.weid.demo.mapper.UserLogInfoMapper">
+    <resultMap id="UserInfoDo" type="com.webank.weid.demo.common.dos.UserLogInfoDo">
+        <id column="ID" property="id" jdbcType="INTEGER"/>
+        <result column="did" property="did" jdbcType="VARCHAR"/>
+        <result column="ipAddress" property="ipAddress" jdbcType="VARCHAR"/>
+        <result column="loginAddress" property="loginAddress" jdbcType="VARCHAR"/>
+        <result column="createTime" property="createTime"/>
+    </resultMap>
+    <!-- 插入DID 信息 -->
+    <insert id="insertLogInfo" parameterType="com.webank.weid.demo.common.dos.UserLogInfoDo">
+        INSERT INTO tb_log (did, ipAddress, loginAddress, createTime)
+        values (#{did}, #{ipAddress}, #{loginAddress}, #{createTime});
+    </insert>
+
+    <select id="getUserLogInfo" resultMap="com.webank.weid.demo.common.dos.UserLogInfoDo" parameterType="java.lang.String">
+        select * from tb_user where did = #{did} order by createTime desc limit 0,5;
+    </select>
+
+</mapper>

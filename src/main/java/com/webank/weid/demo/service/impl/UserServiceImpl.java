@@ -10,6 +10,7 @@ import com.webank.weid.demo.common.response.UserInfoResult;
 import com.webank.weid.demo.common.util.ConvertUtil;
 import com.webank.weid.demo.mapper.UserAgentMapper;
 import com.webank.weid.demo.mapper.UserInfoMapper;
+import com.webank.weid.demo.service.UserLogService;
 import com.webank.weid.demo.service.UserService;
 import com.webank.weid.protocol.response.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserInfoMapper userInfoMapper;
+
+    @Autowired
+    private UserLogService userLogService;
 
     /**
      * 用户登陆
@@ -64,6 +68,7 @@ public class UserServiceImpl implements UserService {
         String account = userInfoRequest.getPhoneNumber();
         UserInfoDo userInfo = new UserInfoDo();
         WeIdDo weIdDo = userAgentMapper.findByAccount(account);
+        userLogService.insertLogInfo(weIdDo);
         if(weIdDo != null){
             userInfo = convertUtil.convertToUserInfoDo(userInfoRequest);
             userInfo.setDid(weIdDo.getDid());

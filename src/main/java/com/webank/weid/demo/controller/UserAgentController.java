@@ -23,16 +23,17 @@ import com.webank.weid.demo.common.request.UserInfoRequest;
 import com.webank.weid.demo.common.request.WeIdRequest;
 import com.webank.weid.demo.common.response.ResMsg;
 import com.webank.weid.demo.common.response.UserInfoResult;
+import com.webank.weid.demo.common.response.UserLogInfoResult;
+import com.webank.weid.demo.service.DemoService;
+import com.webank.weid.demo.service.UserLogService;
 import com.webank.weid.demo.service.UserService;
+import com.webank.weid.protocol.response.CreateWeIdDataResult;
+import com.webank.weid.protocol.response.ResponseData;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.webank.weid.demo.service.DemoService;
-import com.webank.weid.protocol.response.CreateWeIdDataResult;
-import com.webank.weid.protocol.response.ResponseData;
 
 /**
  * Demo Controller.
@@ -50,6 +51,9 @@ public class UserAgentController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserLogService userLogService;
 
     /**
      * create weId without parameters and call the settings property method.
@@ -75,10 +79,15 @@ public class UserAgentController {
     }
 
     @ApiOperation(value = "获取用户信息")
-    @PostMapping("/shortVideo/userAgent/didcardinfo")
+    @PostMapping("/shortVideo/userAgent/didCardInfo")
     public ResponseData<UserInfoResult> didCardInfo(UserInfoRequest userInfoRequest) {
         return userService.didCardInfo(userInfoRequest);
     }
 
+    @ApiOperation(value = "获取用户登陆日志信息")
+    @PostMapping("/shortVideo/userAgent/recentLog")
+    public ResponseData<UserLogInfoResult> recentLog(UserInfoRequest userInfoRequest) {
+        return userLogService.recentLog(userInfoRequest);
+    }
 
 }
